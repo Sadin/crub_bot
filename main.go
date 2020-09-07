@@ -24,6 +24,8 @@ var (
 	buffer = make([][]byte, 0)
 )
 
+var conn *pgx.Conn
+
 func init() {
 
 	flag.StringVar(&Token, "t", "", "Bot Token")
@@ -49,7 +51,11 @@ func main() {
 		msg := fmt.Sprintf("Unable to connect to database: %v\n", err)
 		writeLog(msg, "logs.csv")
 	}
-	conn.Close(context.Background())
+	defer conn.Close(context.Background())
+	/*
+		connection_status := strconv.FormatBool(conn.IsClosed())
+		msg := fmt.Sprintf("Connection Success?: %s\n", connection_status)
+		writeLog(msg, "logs.csv") */
 
 	// Register ready as a callback for the ready events.
 	dg.AddHandler(ready)
@@ -313,10 +319,11 @@ func writeLog(text string, path string) string {
 // establishes db connection and passes Conn struct back
 func db_init(pass string) (*pgx.Conn, error) {
 	fmt.Println("Connecting to database...")
-	conn, err := pgx.Connect(context.Background(), os.Getenv(fmt.Sprintf("host=zsny.dev user=snydez password=%s dbname=postgres port=5432", pass)))
-	if err != nil {
-		os.Exit(1)
-	}
+
+	dsn := fmt.Sprintf("host=zsny.dev user=snydez password=%s dbname=postgres port=5432", pass)
+	conn, err := pgx.Connect(context.Background(), dsn)
+
+	fmt.Println(err)
 
 	return conn, err
 }

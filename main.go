@@ -103,15 +103,13 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	// debug
 	if strings.HasPrefix(strings.ToLower(m.Content), strings.ToLower("!debug")) {
-		// quick reply
-		reply := fmt.Sprintf("<@%s> requested debug info", m.Author.ID)
 		// get data print debug
 		debug, err := s.Guild(m.GuildID)
 		if err != nil {
 			// error fetching guild debug
 			return
 		}
-		res := fmt.Sprintf("%s \n ID: `%s` \n Name: `%s` \n Region: `%s` \n", reply, debug.ID, debug.Name, debug.Region)
+		res := fmt.Sprintf("ID: `%s` \n Name: `%s` \n Region: `%s` \n", debug.ID, debug.Name, debug.Region)
 		fmt.Println(res)
 
 		// loop through voice states
@@ -122,12 +120,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		res = fmt.Sprintf("%s`", res)
 
 		s.ChannelMessageSend(m.ChannelID, res)
-	}
-
-	// crub
-	if strings.HasPrefix(strings.ToLower(m.Content), "!crub") || strings.HasPrefix(strings.ToLower(m.Content), "!help") {
-		reply := fmt.Sprintf(":dankKEK:")
-		s.ChannelMessageSend(m.ChannelID, reply)
 	}
 
 	// call bot into voice

@@ -43,6 +43,14 @@ func main() {
 
 	fmt.Println("success.")
 
+	// connect to DB
+	conn, err := db_init("86793345Snyd!")
+	if err != nil {
+		msg := fmt.Sprintf("Unable to connect to database: %v\n", err)
+		writeLog(msg, "logs.csv")
+	}
+	conn.Close(context.Background())
+
 	// Register ready as a callback for the ready events.
 	dg.AddHandler(ready)
 	// Register guildCreate as a callback for the guildCreate events.
@@ -302,14 +310,13 @@ func writeLog(text string, path string) string {
 	return text
 }
 
-func db_init(pass string) *pgx.Conn {
+// establishes db connection and passes Conn struct back
+func db_init(pass string) (*pgx.Conn, error) {
 	fmt.Println("Connecting to database...")
-	conn, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	conn, err := pgx.Connect(context.Background(), os.Getenv(fmt.Sprintf("host=zsny.dev user=snydez password=%s dbname=postgres port=5432", pass)))
 	if err != nil {
-		msg := fmt.Sprintf("Unable to connect to database: %v\n", err)
-		writeLog(msg, "logs.csv")
 		os.Exit(1)
 	}
 
-	return conn
+	return conn, err
 }

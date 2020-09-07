@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"io"
@@ -13,6 +14,8 @@ import (
 	"github.com/jonas747/dca"
 
 	"github.com/bwmarrin/discordgo"
+
+	"github.com/jackc/pgx/v4"
 )
 
 // system vairables from command line params
@@ -297,4 +300,16 @@ func writeLog(text string, path string) string {
 		return e
 	}
 	return text
+}
+
+func db_init(pass string) *pgx.Conn {
+	fmt.Println("Connecting to database...")
+	conn, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	if err != nil {
+		msg := fmt.Sprintf("Unable to connect to database: %v\n", err)
+		writeLog(msg, "logs.csv")
+		os.Exit(1)
+	}
+
+	return conn
 }

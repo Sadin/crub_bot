@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -49,13 +50,12 @@ func main() {
 	conn, err := db_init("86793345Snyd!")
 	if err != nil {
 		msg := fmt.Sprintf("Unable to connect to database: %v\n", err)
-		writeLog(msg, "logs.csv")
+		fmt.Println(writeLog(msg, "logs.csv"))
 	}
 	defer conn.Close(context.Background())
-	/*
-		connection_status := strconv.FormatBool(conn.IsClosed())
-		msg := fmt.Sprintf("Connection Success?: %s\n", connection_status)
-		writeLog(msg, "logs.csv") */
+	connection_status := strconv.FormatBool(!conn.IsClosed())
+	msg := fmt.Sprintf("Connection Success?: %s\n", connection_status)
+	fmt.Println(writeLog(msg, "logs.csv"))
 
 	// Register ready as a callback for the ready events.
 	dg.AddHandler(ready)

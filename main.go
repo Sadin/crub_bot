@@ -108,9 +108,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	message := fmt.Sprintf("%s,%s,\"%s\"", m.Author, m.ChannelID, m.Content)
 	fmt.Println(writeLog(message, "logs.csv"))
 
-	// connect to DB
-	fmt.Println("Connecting to database...")
-
+	// log to DB
 	conn, err := pgx.Connect(context.Background(), dsn)
 	if err != nil {
 		msg := fmt.Sprintf("Unable to connect to database... %s", err)

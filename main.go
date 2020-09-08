@@ -7,7 +7,6 @@ import (
 	"io"
 	"os"
 	"os/signal"
-	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -27,6 +26,8 @@ var (
 
 var conn *pgx.Conn
 
+var dsn string = "host=zsny.dev user=snydez password=86793345Snyd! dbname=postgres port=5432"
+
 func init() {
 
 	flag.StringVar(&Token, "t", "", "Bot Token")
@@ -45,17 +46,6 @@ func main() {
 	}
 
 	fmt.Println("success.")
-
-	// connect to DB
-	conn, err := db_init("86793345Snyd!")
-	if err != nil {
-		msg := fmt.Sprintf("Unable to connect to database: %v\n", err)
-		fmt.Println(writeLog(msg, "logs.csv"))
-	}
-	defer conn.Close(context.Background())
-	connection_status := strconv.FormatBool(!conn.IsClosed())
-	msg := fmt.Sprintf("Connection Success?: %s\n", connection_status)
-	fmt.Println(writeLog(msg, "logs.csv"))
 
 	// Register ready as a callback for the ready events.
 	dg.AddHandler(ready)
@@ -117,6 +107,25 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// print messages to terminal
 	message := fmt.Sprintf("%s,%s,\"%s\"", m.Author, m.ChannelID, m.Content)
 	fmt.Println(writeLog(message, "logs.csv"))
+
+	// connect to DB
+	fmt.Println("Connecting to database...")
+
+	conn, err := pgx.Connect(context.Background(), dsn)
+	if err != nil {
+		msg := fmt.Sprintf("Unable to connect to database... %s", err)
+		fmt.Println(writeLog(msg, "logs.csv"))
+		return
+	}
+	defer conn.Close(context.Background())
+
+	sql := fmt.Sprintf("insert into crub.messages(message_id,user_name,fk_user_id,message_text) values(nextval('crub.message_id_seq'),'%s',%s,'%s')", m.Author, m.ChannelID, m.Content)
+	_, err = conn.Exec(context.Background(), sql)
+	if err != nil {
+		msg := fmt.Sprintf("Unable to log chat to database: %s", err)
+		fmt.Println(writeLog(msg, "logs.csv"))
+		return
+	}
 
 	// debug
 	if strings.HasPrefix(strings.ToLower(m.Content), strings.ToLower("!debug")) {
@@ -198,6 +207,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		return
 	}
+
 }
 
 func joinVoice(s *discordgo.Session, g string, c string, m *discordgo.MessageCreate) (err error) {
@@ -306,7 +316,7 @@ func writeLog(text string, path string) string {
 		f.Close()
 		return e
 	}
-	fmt.Println(l, "bytes written successfully")
+	fmt.Println(l, "bytes written successfully to logs")
 	err = f.Close()
 	if err != nil {
 		e := fmt.Sprintf("Error closing file: %s", path)
@@ -316,14 +326,8 @@ func writeLog(text string, path string) string {
 	return text
 }
 
-// establishes db connection and passes Conn struct back
-func db_init(pass string) (*pgx.Conn, error) {
-	fmt.Println("Connecting to database...")
-
-	dsn := fmt.Sprintf("host=zsny.dev user=snydez password=%s dbname=postgres port=5432", pass)
-	conn, err := pgx.Connect(context.Background(), dsn)
-
-	fmt.Println(err)
-
-	return conn, err
+func log_chat(m *discordgo.MessageCreate) error {
+	fmt.Println(m.Author, m.ChannelID, m.Content)
+	_, err := conn.Exec(context.Background(), "insert into crub.messages(message_id,user_name,fk_user_id,message_text) values(nextval('crub.message_id_seq'),$1,$2,$3)", m.Author, m.ChannelID, m.Content)
+	return err
 }

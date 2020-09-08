@@ -1268,3 +1268,63 @@ Unable to connect to database: failed to connect to `host=/var/run/postgresql us
 
 zook#0001,752657391975137363,"!hey"
 zook#0001,752657391975137363,Guild: 532227117283409930 | Channel: 725730150989168730
+Connection Success?: false
+
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hey"
+zook#0001,752657391975137363,Guild: 532227117283409930 | Channel: 725730150989168730
+Connection Success?: true
+
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hi"
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?: true
+
+zook#0001,752657391975137363,"yo"
+Connection Success?: true
+
+zook#0001,594316653076938774,"yo"
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?: true
+
+zook#0001,752657391975137363,"!debug"
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?: true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?  true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?  true
+
+zook#0001,752657391975137363,"!hey"
+Connection Success?  true
+
+zook#0001,752657391975137363,"!hey"
+zook#0001,752657391975137363,"!hey"
+zook#0001,752657391975137363,Guild: 532227117283409930 | Channel: 725730150989168730
+zook#0001,752657391975137363,"!hey"
+zook#0001,752657391975137363,"!hey"
+Unable to log chat to database: cannot convert {208059872791494656  zook ce78b1ab65bdb088546c488cae707b19  0001  false false false} to Text
+Clark#2222,594316653076938774,"!hey"
+Unable to log chat to database: cannot convert {121099292084535296  Clark 1ef554856d1eb7be43ca951c66073441  2222  false false false} to Text
+zook#0001,752657391975137363,"!hey"
+Unable to log chat to database: ERROR: column "zook" does not exist (SQLSTATE 42703)
+zook#0001,752657391975137363,"!hey"
+zook#0001,752657391975137363,Guild: 532227117283409930 | Channel: 725730150989168730
+zook#0001,594316653076938774,"!debug"
+Rythm#3722,594316653076938774,"Shard `[3366 / 5888]`
+Pod `r1-pod-280`
+Node `node-0`
+Server Region `US East`"

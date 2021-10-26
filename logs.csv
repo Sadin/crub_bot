@@ -1328,3 +1328,15 @@ Rythm#3722,594316653076938774,"Shard `[3366 / 5888]`
 Pod `r1-pod-280`
 Node `node-0`
 Server Region `US East`"
+snydez#0001,594316653076938774,"!hi"
+snydez#0001,594316653076938774,"!hey"
+snydez#0001,594316653076938774,"!ping"
+Rythm#3722,594316653076938774,""
+Unable to connect to database... failed to connect to `host=zsny.dev user=snydez database=postgres`: dial error (dial tcp 107.191.42.160:5432: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+Unable to connect to database... failed to connect to `host=zsny.dev user=snydez database=postgres`: dial error (dial tcp 107.191.42.160:5432: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+Unable to connect to database... failed to connect to `host=zsny.dev user=snydez database=postgres`: dial error (dial tcp 107.191.42.160:5432: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+Unable to connect to database... failed to connect to `host=zsny.dev user=snydez database=postgres`: dial error (dial tcp 107.191.42.160:5432: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+snydez#0001,594316653076938774,"!hey"
+snydez#0001,594316653076938774,Guild: 532227117283409930 | Channel: 725730150989168730
+Clark#9578,594316653076938774,"!hey"
+Clark#9578,594316653076938774,Guild: 532227117283409930 | Channel: 725730150989168730

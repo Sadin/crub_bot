@@ -108,6 +108,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	message := fmt.Sprintf("%s,%s,\"%s\"", m.Author, m.ChannelID, m.Content)
 	fmt.Println(writeLog(message, "logs.csv"))
 
+	/*
 	// log to DB
 	conn, err := pgx.Connect(context.Background(), dsn)
 	if err != nil {
@@ -124,6 +125,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		fmt.Println(writeLog(msg, "logs.csv"))
 		return
 	}
+	*/
 
 	// debug
 	if strings.HasPrefix(strings.ToLower(m.Content), strings.ToLower("!debug")) {

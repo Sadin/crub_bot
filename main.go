@@ -26,7 +26,6 @@ var (
 
 var conn *pgx.Conn
 
-var dsn string = "host=zsny.dev user=snydez password=86793345Snyd! dbname=postgres port=5432"
 
 func init() {
 

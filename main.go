@@ -107,25 +107,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	message := fmt.Sprintf("%s,%s,\"%s\"", m.Author, m.ChannelID, m.Content)
 	fmt.Println(writeLog(message, "logs.csv"))
 
-	/*
-	// log to DB
-	conn, err := pgx.Connect(context.Background(), dsn)
-	if err != nil {
-		msg := fmt.Sprintf("Unable to connect to database... %s", err)
-		fmt.Println(writeLog(msg, "logs.csv"))
-		return
-	}
-	defer conn.Close(context.Background())
-
-	sql := fmt.Sprintf("insert into crub.messages(message_id,user_name,fk_user_id,message_text) values(nextval('crub.message_id_seq'),'%s',%s,'%s')", m.Author, m.ChannelID, m.Content)
-	_, err = conn.Exec(context.Background(), sql)
-	if err != nil {
-		msg := fmt.Sprintf("Unable to log chat to database: %s", err)
-		fmt.Println(writeLog(msg, "logs.csv"))
-		return
-	}
-	*/
-
 	// debug
 	if strings.HasPrefix(strings.ToLower(m.Content), strings.ToLower("!debug")) {
 		// get data print debug

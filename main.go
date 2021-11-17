@@ -115,7 +115,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			// error fetching guild debug
 			return
 		}
-		res := fmt.Sprintf("\n ID: `%s` \n Name: `%s` \n Region: `%s` \n", debug.ID, debug.Name, debug.Region)
+		res := fmt.Sprintf("**DEBUG INFO** \n **ID:** `%s` \n **Name:** `%s` \n **Region:** `%s` \n", debug.ID, debug.Name, debug.Region)
 		fmt.Println(res)
 
 		// loop through voice states

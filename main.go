@@ -107,14 +107,15 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	message := fmt.Sprintf("%s,%s,\"%s\"", m.Author, m.ChannelID, m.Content)
 	fmt.Println(writeLog(message, "logs.csv"))
 
-	// debug
-	if strings.HasPrefix(strings.ToLower(m.Content), strings.ToLower("!debug")) {
-		// get data print debug
+	// debug info command
+	if strings.HasPrefix(strings.ToLower(m.Content), "!debug") {
+		// get data
 		debug, err := s.Guild(m.GuildID)
 		if err != nil {
 			// error fetching guild debug
 			return
 		}
+		// print debug header
 		res := fmt.Sprintf("**DEBUG INFO** \n **ID:** `%s` \n **Name:** `%s` \n **Region:** `%s` \n", debug.ID, debug.Name, debug.Region)
 		fmt.Println(res)
 

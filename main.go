@@ -118,11 +118,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		res := fmt.Sprintf("**DEBUG INFO** \n **ID:** `%s` \n **Name:** `%s` \n **Region:** `%s` \n", debug.ID, debug.Name, debug.Region)
 		fmt.Println(res)
 
-		// loop through voice states
-		res = fmt.Sprintf("%s \n Voice States: \n `", res)
-		for _, vs := range debug.VoiceStates {
-			res = fmt.Sprintf("%s\n Channel: %s | User: %s", res, vs.ChannelID, vs.UserID)
-		}
 		res = fmt.Sprintf("%s`", res)
 
 		s.ChannelMessageSend(m.ChannelID, res)

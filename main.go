@@ -81,22 +81,14 @@ func ready(s *discordgo.Session, event *discordgo.Ready) {
 }
 */
 
-// This function will be called every time a new
-// guild ( SERVER ) is joined.
+// This function will be called for every server crub has joined
 func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 	if event.Guild.Unavailable {
-		fmt.Println("error with guild")
+		fmt.Println("error with guild" + event.Guild.ID)
 		return
 	}
-
-	for _, channel := range event.Guild.Channels {
-		if channel.ID == event.Guild.ID {
-			fmt.Println(event.Guild.ID)
-			// _, _ = s.ChannelMessageSend(channel.ID, "Here I come!")
-			return
-		}
-	}
+	fmt.Println(event.Guild.Name)
 }
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {

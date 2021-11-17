@@ -47,7 +47,7 @@ func main() {
 	fmt.Println("success.")
 
 	// Register ready as a callback for the ready events.
-	dg.AddHandler(ready)
+	// dg.AddHandler(ready)
 	// Register guildCreate as a callback for the guildCreate events.
 	dg.AddHandler(guildCreate)
 	// register message create event handler

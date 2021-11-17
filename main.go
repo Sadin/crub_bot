@@ -71,6 +71,7 @@ func main() {
 	dg.Close()
 }
 
+/*
 // This function will be called (due to AddHandler above) when the bot receives
 // the "ready" event from Discord.
 func ready(s *discordgo.Session, event *discordgo.Ready) {
@@ -78,6 +79,7 @@ func ready(s *discordgo.Session, event *discordgo.Ready) {
 	s.UpdateStatus(0, "7777777777777")
 	fmt.Println("ready")
 }
+*/
 
 // This function will be called every time a new
 // guild ( SERVER ) is joined.

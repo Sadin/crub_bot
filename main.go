@@ -26,6 +26,7 @@ var (
 
 var conn *pgx.Conn
 
+// global variables
 var guild_list []string
 
 

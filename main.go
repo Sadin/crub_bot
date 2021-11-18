@@ -26,6 +26,9 @@ var (
 
 var conn *pgx.Conn
 
+var guild_list []string
+
+
 
 func init() {
 
@@ -88,6 +91,7 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 		fmt.Println("error with guild" + event.Guild.ID)
 		return
 	}
+	guild_list = append(guild_list,event.Guild.Name)
 	fmt.Println(event.Guild.Name)
 }
 
@@ -111,6 +115,16 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		// print debug header
 		res := fmt.Sprintf("**DEBUG INFO** \n **ID:** `%s` \n **Name:** `%s` \n **Region:** `%s` \n", debug.ID, debug.Name, debug.Region)
+		// loop through guild name slice, append to debug response
+		for guild_list_item := 0; guild_list_item < len(guild_list); guild_list_item++ {
+			// header
+			if guild_list_item == 0 {
+				res = res + fmt.Sprintf("\n**CONNECTED SERVERS** \n")
+			}
+			// append guild name to debug response
+			res = res + fmt.Sprintf("%s\n",guild_list[guild_list_item])
+		}
+
 		fmt.Println(res)
 
 		s.ChannelMessageSend(m.ChannelID, res)

@@ -49,8 +49,6 @@ func main() {
 
 	fmt.Println("success.")
 
-	// Register ready as a callback for the ready events.
-	// dg.AddHandler(ready)
 	// Register guildCreate as a callback for the guildCreate events.
 	dg.AddHandler(guildCreate)
 	// register message create event handler
@@ -73,16 +71,6 @@ func main() {
 	// close
 	dg.Close()
 }
-
-/*
-// This function will be called (due to AddHandler above) when the bot receives
-// the "ready" event from Discord.
-func ready(s *discordgo.Session, event *discordgo.Ready) {
-	// Set the playing status.
-	s.UpdateStatus(0, "7777777777777")
-	fmt.Println("ready")
-}
-*/
 
 // This function will be called for every server crub has joined
 func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {

@@ -26,6 +26,9 @@ var (
 
 var conn *pgx.Conn
 
+var guild_list []string
+
+
 
 func init() {
 
@@ -81,22 +84,15 @@ func ready(s *discordgo.Session, event *discordgo.Ready) {
 }
 */
 
-// This function will be called every time a new
-// guild ( SERVER ) is joined.
+// This function will be called for every server crub has joined
 func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 	if event.Guild.Unavailable {
-		fmt.Println("error with guild")
+		fmt.Println("error with guild" + event.Guild.ID)
 		return
 	}
-
-	for _, channel := range event.Guild.Channels {
-		if channel.ID == event.Guild.ID {
-			fmt.Println(event.Guild.ID)
-			// _, _ = s.ChannelMessageSend(channel.ID, "Here I come!")
-			return
-		}
-	}
+	guild_list = append(guild_list,event.Guild.Name)
+	fmt.Println(event.Guild.Name)
 }
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -119,6 +115,16 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 		// print debug header
 		res := fmt.Sprintf("**DEBUG INFO** \n **ID:** `%s` \n **Name:** `%s` \n **Region:** `%s` \n", debug.ID, debug.Name, debug.Region)
+		// loop through guild name slice, append to debug response
+		for guild_list_item := 0; guild_list_item < len(guild_list); guild_list_item++ {
+			// header
+			if guild_list_item == 0 {
+				res = res + fmt.Sprintf("\n**CONNECTED SERVERS** \n")
+			}
+			// append guild name to debug response
+			res = res + fmt.Sprintf("`%s`\n",guild_list[guild_list_item])
+		}
+
 		fmt.Println(res)
 
 		s.ChannelMessageSend(m.ChannelID, res)

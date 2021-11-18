@@ -122,7 +122,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				res = res + fmt.Sprintf("\n**CONNECTED SERVERS** \n")
 			}
 			// append guild name to debug response
-			res = res + fmt.Sprintf("%s\n",guild_list[guild_list_item])
+			res = res + fmt.Sprintf("`%s`\n",guild_list[guild_list_item])
 		}
 
 		fmt.Println(res)

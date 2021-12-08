@@ -214,6 +214,11 @@ func aroundWorld(victim string, s *discordgo.Session) {
 
 }
 
+func isConnected(user string, s *discordgo.Session) bool {
+	// check if user is in voice
+	return false
+}
+
 // Audio Functions -  load file, play audio
 
 func playSound(filepath string, vc *discordgo.VoiceConnection) error {
